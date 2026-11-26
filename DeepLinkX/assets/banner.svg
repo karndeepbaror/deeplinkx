@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="380" viewBox="0 0 1280 380" role="img" aria-labelledby="t d">
+  <title id="t">DEEPLINK X</title>
+  <desc id="d">DEEPLINK X, Android deep link security auditor. Every link has an entry point. Secure every entry.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0B1020"/><stop offset=".55" stop-color="#141B38"/><stop offset="1" stop-color="#1B1640"/></linearGradient>
+    <linearGradient id="g1" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#C9D4FF"/></linearGradient>
+    <linearGradient id="gx" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4F7CFF"/><stop offset=".5" stop-color="#9B6BFF"/><stop offset="1" stop-color="#3FDDB2"/></linearGradient>
+    <linearGradient id="gl" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2F55F5" stop-opacity="0"/><stop offset=".25" stop-color="#4F7CFF"/><stop offset=".6" stop-color="#9B6BFF"/><stop offset=".85" stop-color="#3FDDB2"/><stop offset="1" stop-color="#3FDDB2" stop-opacity="0"/></linearGradient>
+    <radialGradient id="glowA" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#3556FF" stop-opacity=".55"/><stop offset="1" stop-color="#3556FF" stop-opacity="0"/></radialGradient>
+    <radialGradient id="glowB" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#8B5CF6" stop-opacity=".45"/><stop offset="1" stop-color="#8B5CF6" stop-opacity="0"/></radialGradient>
+    <radialGradient id="glowC" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#3FDDB2" stop-opacity=".35"/><stop offset="1" stop-color="#3FDDB2" stop-opacity="0"/></radialGradient>
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.1" fill="#8FA4FF" opacity=".22"/></pattern>
+    <linearGradient id="fade" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".3" stop-color="#fff"/><stop offset=".8" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <mask id="dm"><rect width="1280" height="380" fill="url(#fade)"/></mask>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="6"/></filter>
+    <filter id="ds" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#3556FF" flood-opacity=".35"/></filter>
+    <clipPath id="card"><rect width="1280" height="380" rx="28"/></clipPath>
+  </defs>
+  <style>
+    .t{font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif}
+    .ring{transform-origin:200px 190px;animation:spin 28s linear infinite}
+    .pulse{transform-origin:200px 190px;animation:pulse 2.8s ease-in-out infinite}
+    .ndA{animation:tw 3s ease-in-out infinite}.ndB{animation:tw 3s ease-in-out -.75s infinite}.ndC{animation:tw 3s ease-in-out -1.5s infinite}.ndD{animation:tw 3s ease-in-out -2.25s infinite}
+    .float{animation:fl 7s ease-in-out infinite}
+    .shim{animation:sh 6s ease-in-out infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    @keyframes pulse{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.18);opacity:.45}}
+    @keyframes tw{0%,100%{opacity:1}50%{opacity:.45}}
+    @keyframes fl{50%{transform:translateY(-6px)}}
+    @keyframes sh{0%{transform:translateX(-200px) skewX(-20deg)}60%,100%{transform:translateX(1500px) skewX(-20deg)}}
+  </style>
+  <g clip-path="url(#card)">
+    <rect width="1280" height="380" fill="url(#bg)"/>
+    <circle cx="170" cy="190" r="260" fill="url(#glowA)"/>
+    <circle cx="1120" cy="60" r="280" fill="url(#glowB)"/>
+    <circle cx="760" cy="400" r="260" fill="url(#glowC)"/>
+    <rect width="1280" height="380" fill="url(#dots)" mask="url(#dm)"/>
+
+    <!-- emblem -->
+    <g class="float">
+      <circle class="ring" cx="200" cy="190" r="132" fill="none" stroke="url(#gx)" stroke-width="1.4" stroke-dasharray="3 9" opacity=".7"/>
+      <circle class="pulse" cx="200" cy="190" r="104" fill="none" stroke="#6F8CFF" stroke-width="1.2" opacity=".5"/>
+      <path d="M200 100 L276 144 L276 236 L200 280 L124 236 L124 144 Z" fill="#12183A" fill-opacity=".85" stroke="url(#gx)" stroke-width="3.5" stroke-linejoin="round" filter="url(#ds)"/>
+      <path d="M200 116 L262 152 L262 228 L200 264 L138 228 L138 152 Z" fill="none" stroke="#fff" stroke-opacity=".08" stroke-width="1.5" stroke-linejoin="round"/>
+      <!-- X of links -->
+      <g stroke="url(#gx)" stroke-width="7" stroke-linecap="round">
+        <line x1="165" y1="155" x2="235" y2="225"/><line x1="235" y1="155" x2="165" y2="225"/>
+      </g>
+      <g fill="#0E1322" stroke-width="3.5">
+        <circle class="ndA" cx="165" cy="155" r="9" stroke="#4F7CFF"/>
+        <circle class="ndB" cx="235" cy="155" r="9" stroke="#9B6BFF"/>
+        <circle class="ndC" cx="165" cy="225" r="9" stroke="#9B6BFF"/>
+        <circle class="ndD" cx="235" cy="225" r="9" stroke="#3FDDB2"/>
+      </g>
+      <circle cx="200" cy="190" r="13" fill="#3FDDB2" opacity=".25"/>
+      <circle cx="200" cy="190" r="7" fill="#3FDDB2"/>
+      <circle cx="200" cy="190" r="2.6" fill="#0E1322"/>
+    </g>
+
+    <!-- wordmark -->
+    <g class="t">
+      <text x="372" y="214" font-size="126" font-weight="900" letter-spacing="-3" fill="url(#g1)">DEEPLINK</text>
+      <text x="1000" y="214" font-size="126" font-weight="900" letter-spacing="-3" fill="url(#gx)">X</text>
+      <rect x="372" y="236" width="720" height="3" rx="2" fill="url(#gl)"/>
+      <text x="374" y="282" font-size="27" font-weight="600" letter-spacing="1" fill="#C3CCEA">Every Link Has an Entry Point. Secure Every Entry.</text>
+      <text x="374" y="322" font-size="16" font-weight="700" letter-spacing="5" fill="#7F9BFF">ANDROID DEEP LINK &amp; ENTRY POINT SECURITY AUDITOR</text>
+    </g>
+    <rect class="shim" x="0" y="0" width="90" height="380" fill="#fff" opacity=".05"/>
+  </g>
+  <rect x=".75" y=".75" width="1278.5" height="378.5" rx="27.5" fill="none" stroke="#fff" stroke-opacity=".12" stroke-width="1.5"/>
+</svg>

@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DEEPLINK X report - {{ apk.package }}</title>
+<style>
+:root{--bg:#070b14;--bg2:#0d1424;--panel:#111a2e;--panel2:#16213a;--line:#223052;--text:#e7ecf8;--muted:#8d9bbd;--accent:#4fd1c5;--accent2:#7c8cff;
+--crit:#ff3b5c;--high:#ff7a45;--med:#f5b638;--low:#3fb8a5;--info:#6b8cff;--code:#0a1120;--shadow:0 10px 40px rgba(0,0,0,.35)}
+[data-theme=light]{--bg:#f3f5fb;--bg2:#e9edf7;--panel:#fff;--panel2:#f6f8fd;--line:#d9e0f0;--text:#141b2d;--muted:#5d6b8c;--accent:#0f9d8f;--accent2:#4a5bd4;--code:#f1f4fb;--shadow:0 8px 30px rgba(20,30,60,.08)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(1200px 600px at 80% -10%,rgba(124,140,255,.16),transparent),radial-gradient(900px 500px at -10% 10%,rgba(79,209,197,.12),transparent),var(--bg);color:var(--text);font:15px/1.55 Inter,"Segoe UI",system-ui,-apple-system,sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+header.top{position:sticky;top:0;z-index:20;backdrop-filter:blur(14px);background:color-mix(in srgb,var(--bg) 82%,transparent);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;gap:20px;height:56px}
+.brand{font-weight:800;letter-spacing:.14em;font-size:14px}.brand b{color:var(--accent)}
+nav{display:flex;gap:4px;flex:1;overflow:auto}nav a{color:var(--muted);text-decoration:none;padding:6px 10px;border-radius:8px;font-size:13px;white-space:nowrap}nav a:hover{background:var(--panel);color:var(--text)}
+button.theme{background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:8px;padding:6px 10px;cursor:pointer}
+.hero{padding:56px 0 28px}.hero .tag{color:var(--accent);letter-spacing:.2em;font-size:12px;text-transform:uppercase}
+.hero h1{margin:10px 0 6px;font-size:36px;line-height:1.15}.hero p{color:var(--muted);margin:0;max-width:760px}
+.hash{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;color:var(--muted);word-break:break-all}
+.grid{display:grid;gap:16px}.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:1.1fr .9fr}
+@media(max-width:900px){.g4,.g3,.g2{grid-template-columns:1fr 1fr}}@media(max-width:600px){.g4,.g3,.g2{grid-template-columns:1fr}.hero h1{font-size:26px}}
+.card{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:16px;padding:18px 20px;box-shadow:var(--shadow)}
+.card h3{margin:0 0 12px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.stat{font-size:30px;font-weight:800;line-height:1.1}.stat small{display:block;font-size:12px;font-weight:500;color:var(--muted);margin-top:4px}
+section{padding:34px 0 6px}section>h2{font-size:22px;margin:0 0 4px}section>p.lead{color:var(--muted);margin:0 0 18px}
+.donutbox{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.donut{width:150px;height:150px;position:relative}.donut svg{transform:rotate(-90deg)}
+.donut .c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}.donut .c b{font-size:30px}.donut .c span{font-size:11px;color:var(--muted);letter-spacing:.1em}
+.legend{flex:1;min-width:220px}.legend .row{display:flex;align-items:center;gap:10px;margin:7px 0}.legend .dot{width:10px;height:10px;border-radius:3px}
+.legend .bar{flex:1;height:6px;border-radius:4px;background:var(--line);overflow:hidden}.legend .bar i{display:block;height:100%}
+.legend .n{width:28px;text-align:right;font-weight:700}
+.catrow{display:grid;grid-template-columns:130px 1fr 30px;gap:10px;align-items:center;margin:8px 0;font-size:13px}.catrow .bar{height:8px;background:var(--line);border-radius:5px;overflow:hidden}.catrow .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+.badge{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border:1px solid transparent}
+.s-CRITICAL{background:rgba(255,59,92,.15);color:var(--crit);border-color:rgba(255,59,92,.4)}.s-HIGH{background:rgba(255,122,69,.15);color:var(--high);border-color:rgba(255,122,69,.4)}
+.s-MEDIUM{background:rgba(245,182,56,.15);color:var(--med);border-color:rgba(245,182,56,.4)}.s-LOW{background:rgba(63,184,165,.15);color:var(--low);border-color:rgba(63,184,165,.4)}
+.s-INFO{background:rgba(107,140,255,.15);color:var(--info);border-color:rgba(107,140,255,.4)}
+.pill{display:inline-block;padding:1px 8px;border-radius:6px;background:var(--code);border:1px solid var(--line);font-size:11px;color:var(--muted);margin-right:4px}
+table{width:100%;border-collapse:collapse;font-size:13px}th{text-align:left;color:var(--muted);font-weight:600;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:8px 10px;border-bottom:1px solid var(--line)}
+td{padding:9px 10px;border-bottom:1px solid color-mix(in srgb,var(--line) 60%,transparent);vertical-align:top}tr:hover td{background:color-mix(in srgb,var(--panel2) 70%,transparent)}
+.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+code,pre,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:12px 14px;overflow:auto;font-size:12px;line-height:1.5;margin:8px 0;white-space:pre-wrap;word-break:break-word}
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 14px}.tools input,.tools select{background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:9px 12px;font:inherit}.tools input{flex:1;min-width:200px}
+details.f{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--info);border-radius:12px;margin:10px 0;overflow:hidden}
+details.f[data-sev=CRITICAL]{border-left-color:var(--crit)}details.f[data-sev=HIGH]{border-left-color:var(--high)}details.f[data-sev=MEDIUM]{border-left-color:var(--med)}details.f[data-sev=LOW]{border-left-color:var(--low)}
+details.f summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}details.f summary::-webkit-details-marker{display:none}
+details.f summary .t{font-weight:650;flex:1;min-width:240px}details.f summary .id{color:var(--muted);font-family:ui-monospace,monospace;font-size:12px}
+details.f .body{padding:2px 18px 18px;border-top:1px solid var(--line)}.body h4{margin:16px 0 4px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.body p{margin:4px 0;white-space:pre-line}.kv{display:grid;grid-template-columns:140px 1fr;gap:4px 12px;font-size:13px}.kv dt{color:var(--muted)}.kv dd{margin:0;word-break:break-word}
+.score{font-weight:800}.ok{color:var(--low)}.bad{color:var(--crit)}.warn{color:var(--med)}
+footer{margin-top:60px;border-top:1px solid var(--line);padding:30px 0 50px;color:var(--muted);font-size:13px}footer a{color:var(--accent);text-decoration:none}
+.gauge{height:10px;border-radius:6px;background:var(--line);overflow:hidden;margin-top:10px}.gauge i{display:block;height:100%}
+.empty{padding:26px;text-align:center;color:var(--muted)}
+.hidden{display:none!important}
+@media print{header.top,.tools,button.theme{display:none}body{background:#fff;color:#000}details.f{break-inside:avoid}details.f .body{display:block}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <div class="brand">DEEPLINK <b>X</b></div>
+  <nav>
+    <a href="#overview">Overview</a><a href="#findings">Findings</a><a href="#links">Deep links</a><a href="#entry">Entry points</a>
+    {% if dynamic %}<a href="#dynamic">Dynamic tests</a>{% endif %}<a href="#config">Configuration</a><a href="#signing">Signing</a>
+  </nav>
+  <button class="theme" id="theme" aria-label="toggle theme">Theme</button>
+</div></header>
+
+<div class="wrap">
+<div class="hero">
+  <div class="tag">{{ meta.tagline }}</div>
+  <h1>{{ apk.app_label or apk.package }} <span style="color:var(--muted);font-weight:500">{{ apk.version_name or '' }}</span></h1>
+  <p class="mono">{{ apk.package }}</p>
+  <p class="hash">sha256 {{ apk.hashes.sha256 }}</p>
+</div>
+
+<section id="overview" style="padding-top:0">
+  <div class="grid g4">
+    <div class="card"><h3>Risk score</h3><div class="stat" style="color:{{ risk_color }}">{{ risk }}<small>out of 100 &middot; {{ summary.risk_level }}</small></div>
+      <div class="gauge"><i style="width:{{ risk }}%;background:{{ risk_color }}"></i></div></div>
+    <div class="card"><h3>Active findings</h3><div class="stat">{{ summary.active }}<small>{{ summary.total }} total, {{ summary.total - summary.active }} triaged</small></div></div>
+    <div class="card"><h3>Deep links</h3><div class="stat">{{ r.link_summary.total }}<small>{{ r.link_summary.app_links }} app links &middot; {{ r.link_summary.custom_scheme }} custom scheme</small></div></div>
+    <div class="card"><h3>Exposed components</h3><div class="stat">{{ r.exposure.exported_total }}<small>of {{ r.exposure.components_total }} &middot; {{ r.exposure.unprotected }} unprotected</small></div></div>
+  </div>
+
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card"><h3>Severity distribution</h3>
+      <div class="donutbox">
+        <div class="donut"><svg viewBox="0 0 36 36" width="150" height="150"><circle cx="18" cy="18" r="15.915" fill="none" stroke="var(--line)" stroke-width="4"/>
+          {% for s in segments %}<circle cx="18" cy="18" r="15.915" fill="none" stroke="{{ s.color }}" stroke-width="4" stroke-dasharray="{{ s.len }} {{ 100 - s.len }}" stroke-dashoffset="{{ -s.offset }}"/>{% endfor %}</svg>
+          <div class="c"><b>{{ summary.active }}</b><span>FINDINGS</span></div></div>
+        <div class="legend">{% for b in bars %}<div class="row"><span class="dot" style="background:{{ b.color }}"></span><span style="width:70px">{{ b.label }}</span><span class="bar"><i style="width:{{ b.pct }}%;background:{{ b.color }}"></i></span><span class="n">{{ b.count }}</span></div>{% endfor %}</div>
+      </div>
+    </div>
+    <div class="card"><h3>By category</h3>
+      {% for c in cats %}<div class="catrow"><span>{{ c.name }}</span><span class="bar"><i style="width:{{ c.pct }}%"></i></span><b>{{ c.count }}</b></div>{% else %}<div class="empty">No active findings.</div>{% endfor %}
+    </div>
+  </div>
+
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card"><h3>APK information</h3>
+      <dl class="kv">
+        <dt>File</dt><dd>{{ apk.file_name }} ({{ size }})</dd>
+        <dt>Package</dt><dd class="mono">{{ apk.package }}</dd>
+        <dt>Version</dt><dd>{{ apk.version_name or '-' }} (code {{ apk.version_code if apk.version_code is not none else '-' }})</dd>
+        <dt>SDK</dt><dd>min {{ apk.min_sdk or '-' }} &middot; target {{ apk.target_sdk or '-' }} &middot; compile {{ apk.compile_sdk or '-' }}</dd>
+        <dt>Flags</dt><dd>{% if apk.debuggable %}<span class="bad">debuggable</span> {% endif %}{% if apk.allow_backup %}<span class="warn">allowBackup</span> {% endif %}{% if apk.uses_cleartext %}<span class="warn">cleartext</span> {% endif %}{% if not (apk.debuggable or apk.allow_backup or apk.uses_cleartext) %}<span class="ok">none</span>{% endif %}</dd>
+        <dt>DEX files</dt><dd>{{ apk.dex_files|length }} &middot; {{ r.code.classes }} classes &middot; {{ r.code.methods }} app methods</dd>
+        <dt>Native ABIs</dt><dd>{{ apk.native_abis|join(', ') or 'none' }}</dd>
+        <dt>Signature</dt><dd>{{ schemes }}</dd>
+        <dt>MD5</dt><dd class="hash">{{ apk.hashes.md5 }}</dd>
+        <dt>SHA-1</dt><dd class="hash">{{ apk.hashes.sha1 }}</dd>
+      </dl></div>
+    <div class="card"><h3>Scan</h3>
+      <dl class="kv">
+        <dt>Tool</dt><dd>{{ meta.tool }} {{ meta.version }}</dd><dt>Profile</dt><dd>{{ meta.profile }}</dd>
+        <dt>Created</dt><dd>{{ meta.created }}</dd><dt>Duration</dt><dd>{{ meta.duration }} s</dd>
+        <dt>Rules run</dt><dd>{{ meta.rules_run }}</dd>
+        {% if meta.scan_id %}<dt>History id</dt><dd>#{{ meta.scan_id }}</dd>{% endif %}
+        {% if diff %}<dt>Since last scan</dt><dd><span class="bad">{{ diff.new|length }} new</span> &middot; <span class="ok">{{ diff.resolved|length }} resolved</span> &middot; {{ diff.persisting|length }} unchanged (risk {{ diff.risk_before }} &rarr; {{ diff.risk_after }})</dd>{% endif %}
+      </dl>
+      {% if meta.rule_errors %}<h3 style="margin-top:14px">Rule errors</h3>{% for e in meta.rule_errors %}<pre>{{ e }}</pre>{% endfor %}{% endif %}
+      {% if r.warnings %}<h3 style="margin-top:14px">Parser warnings</h3>{% for e in r.warnings %}<pre>{{ e }}</pre>{% endfor %}{% endif %}
+    </div>
+  </div>
+</section>
+
+<section id="findings">
+  <h2>Security findings</h2>
+  <p class="lead">Every finding carries severity, confidence, the affected component, evidence, reproduction steps and remediation. Static findings are indicators: confirm them in an authorised test environment.</p>
+  <div class="tools">
+    <input id="q" type="search" placeholder="Search findings, components, rule ids...">
+    <select id="sev"><option value="">All severities</option>{% for b in bars %}<option value="{{ b.name }}">{{ b.label }} ({{ b.count }})</option>{% endfor %}</select>
+    <select id="cat"><option value="">All categories</option>{% for c in cats %}<option>{{ c.name }}</option>{% endfor %}</select>
+    <select id="stat"><option value="">All statuses</option><option>open</option><option>confirmed</option><option>false_positive</option><option>accepted</option><option>fixed</option></select>
+  </div>
+  {% for f in findings %}
+  <details class="f" data-sev="{{ f.severity }}" data-cat="{{ f.category }}" data-status="{{ f.status }}" data-text="{{ (f.id ~ ' ' ~ f.rule_id ~ ' ' ~ f.title ~ ' ' ~ (f.component or '') ~ ' ' ~ f.category)|lower }}">
+    <summary><span class="badge s-{{ f.severity }}">{{ f.severity }}</span><span class="t">{{ f.title }}</span>
+      <span class="pill">{{ f.rule_id }}</span><span class="pill">{{ f.confidence|lower }}</span>{% if f.source == 'dynamic' %}<span class="pill">dynamic</span>{% endif %}
+      <span class="score" title="score">{{ f.score }}</span><span class="id">{{ f.id }}</span></summary>
+    <div class="body">
+      <dl class="kv" style="margin-top:12px">
+        <dt>Category</dt><dd>{{ f.category }}</dd>
+        {% if f.component %}<dt>Component</dt><dd class="mono">{{ f.component }} <span class="pill">{{ f.component_kind }}</span></dd>{% endif %}
+        <dt>Status</dt><dd>{{ f.status }}</dd><dt>Fingerprint</dt><dd class="mono">{{ f.fingerprint }}</dd>
+        {% if f.affected|length > 1 %}<dt>Affected</dt><dd class="mono">{{ f.affected|join(', ') }}</dd>{% endif %}
+      </dl>
+      <h4>Technical explanation</h4><p>{{ f.description }}</p>
+      {% if f.impact %}<h4>Impact</h4><p>{{ f.impact }}</p>{% endif %}
+      {% for e in f.evidence %}<h4>Evidence &middot; {{ e.title }} <span class="pill">{{ e.kind }}</span></h4><pre>{{ e.content }}</pre>{% endfor %}
+      {% if f.reproduction %}<h4>Reproduction</h4>{% for c in f.reproduction %}<pre>{{ c }}</pre>{% endfor %}{% endif %}
+      <h4>Remediation</h4><p>{{ f.remediation }}</p>
+      {% if f.references %}<h4>References</h4>{% for u in f.references %}<p><a href="{{ u }}" style="color:var(--accent)" rel="noopener noreferrer">{{ u }}</a></p>{% endfor %}{% endif %}
+    </div>
+  </details>
+  {% else %}<div class="card empty">No findings were produced for this scan.</div>{% endfor %}
+</section>
+
+<section id="links">
+  <h2>Deep link inventory</h2>
+  <p class="lead">{{ r.link_summary.total }} link(s) across {{ r.link_summary.components }} component(s).</p>
+  <div class="tablewrap"><table><thead><tr><th>URI</th><th>Component</th><th>Type</th><th>Browsable</th><th>Exported</th><th>Guard</th></tr></thead><tbody>
+    {% for l in r.deep_links %}<tr><td class="mono">{{ l.uri }}</td><td class="mono">{{ l.component.rsplit('.',1)[-1] }}</td>
+      <td>{% if l.is_app_link %}<span class="badge s-LOW">app link</span>{% elif l.scheme in ('http','https') %}<span class="badge s-MEDIUM">web, unverified</span>{% else %}<span class="badge s-INFO">custom scheme</span>{% endif %}</td>
+      <td>{{ 'yes' if l.browsable else 'no' }}</td><td>{{ 'yes' if l.exported else 'no' }}</td><td>{{ l.permission or '-' }}</td></tr>
+    {% else %}<tr><td colspan="6" class="empty">No deep links declared.</td></tr>{% endfor %}
+  </tbody></table></div>
+</section>
+
+<section id="entry">
+  <h2>Entry points</h2>
+  <p class="lead">Components reachable from other apps: {% for k, v in components_by_kind.items() %}{{ v }} {{ k }}{% if not loop.last %} &middot; {% endif %}{% else %}none{% endfor %}.</p>
+  <div class="tablewrap"><table><thead><tr><th>Component</th><th>Kind</th><th>Guard</th><th>Why exported</th><th>Notes</th></tr></thead><tbody>
+    {% for e in r.entry_points %}<tr><td class="mono">{{ e.name.rsplit('.',1)[-1] }}<div class="hash">{{ e.name }}</div></td><td>{{ e.kind }}</td>
+      <td>{% if e.guard == 'none' %}<span class="badge s-HIGH">none</span>{% elif e.guard == 'strong' %}<span class="badge s-LOW">signature</span>{% else %}<span class="badge s-MEDIUM">{{ guard_label[e.guard] }}</span>{% endif %}
+        {% if e.permission %}<div class="hash">{{ e.permission }}</div>{% endif %}</td>
+      <td>{{ e.reasons|join('; ') }}</td>
+      <td>{% if e.is_launcher %}<span class="pill">launcher</span>{% endif %}{% for u in e.unintended %}<div class="warn">{{ u }}</div>{% endfor %}</td></tr>
+    {% else %}<tr><td colspan="5" class="empty">No exported components.</td></tr>{% endfor %}
+  </tbody></table></div>
+</section>
+
+{% if dynamic %}
+<section id="dynamic">
+  <h2>Dynamic testing</h2>
+  <p class="lead">{{ dynamic.results|length }} test case(s) on {{ dynamic.device.serial }}{% if dynamic.device.emulator %} (emulator){% endif %}, {{ dynamic.duration }} s. {{ dynamic.confirmed_static or 0 }} static finding(s) confirmed, {{ dynamic.new_findings or 0 }} new.</p>
+  <div class="card" style="margin-bottom:14px"><h3>Outcomes</h3>{% for k,v in dynamic.counts.items() %}<span class="pill">{{ k }}: {{ v }}</span>{% endfor %}</div>
+  <div class="tablewrap"><table><thead><tr><th>ID</th><th>Category</th><th>Case</th><th>Component</th><th>Outcome</th><th>Flags</th></tr></thead><tbody>
+    {% for x in dynamic.results %}<tr><td class="mono">{{ x.case.id }}</td><td>{{ x.case.category }}</td><td>{{ x.case.name }}</td><td class="mono">{{ x.case.component.rsplit('.',1)[-1] }}</td>
+      <td><span class="badge {% if x.observation.outcome in ('crash','anr') %}s-HIGH{% elif x.observation.outcome in ('launched','data_returned') %}s-MEDIUM{% elif x.observation.outcome=='denied' %}s-LOW{% else %}s-INFO{% endif %}">{{ x.observation.outcome }}</span></td>
+      <td>{% for fl in x.observation.flags %}<span class="pill">{{ fl }}</span>{% endfor %}{% for ex in x.observation.exceptions[:2] %}<span class="pill">{{ ex.rsplit('.',1)[-1] }}</span>{% endfor %}</td></tr>{% endfor %}
+  </tbody></table></div>
+  {% if dynamic.evidence_dir %}<p class="hash" style="margin-top:10px">Evidence and repro.sh: {{ dynamic.evidence_dir }}</p>{% endif %}
+</section>
+{% endif %}
+
+<section id="config">
+  <h2>Configuration</h2>
+  <div class="grid g3">
+    <div class="card"><h3>Permissions</h3><p class="hash" style="margin:0 0 8px">{{ r.permissions.requested|length }} requested</p>
+      {% for p in r.permissions.requested %}<span class="pill" {% if p in r.permissions.high_impact %}style="color:var(--high);border-color:var(--high)"{% elif p in r.permissions.dangerous %}style="color:var(--med)"{% endif %}>{{ p.replace('android.permission.','') }}</span>{% else %}<span class="empty">none</span>{% endfor %}</div>
+    <div class="card"><h3>Network security</h3>
+      <dl class="kv"><dt>Config file</dt><dd>{{ 'yes' if r.network_security.present else 'platform defaults' }}</dd>
+      <dt>Cleartext</dt><dd>{% if r.network_security.base_cleartext %}<span class="bad">allowed</span>{% else %}<span class="ok">blocked</span>{% endif %}</dd>
+      <dt>User CAs</dt><dd>{% if r.network_security.user_certs_trusted %}<span class="warn">trusted</span>{% else %}<span class="ok">not trusted</span>{% endif %}</dd>
+      <dt>Pins</dt><dd>{{ r.network_security.pins }}</dd><dt>Debug overrides</dt><dd>{{ 'yes' if r.network_security.debug_overrides else 'no' }}</dd></dl></div>
+    <div class="card"><h3>Code analysis</h3>
+      <dl class="kv"><dt>Available</dt><dd>{{ 'yes' if r.code.available else 'no' }}</dd><dt>App classes</dt><dd>{{ r.code.app_classes }}</dd>
+      <dt>Obfuscated</dt><dd>{{ 'likely' if r.code.obfuscated else 'no' }}</dd><dt>URLs found</dt><dd>{{ r.code.urls|length }}</dd></dl></div>
+  </div>
+  {% if r.assetlinks %}<div class="card" style="margin-top:16px"><h3>App Link verification (assetlinks.json)</h3><div class="tablewrap"><table><thead><tr><th>Host</th><th>Status</th><th>Detail</th></tr></thead><tbody>
+    {% for a in r.assetlinks %}<tr><td class="mono">{{ a.host }}</td><td><span class="badge {{ 's-LOW' if a.status=='verified' else 's-HIGH' }}">{{ a.status }}</span></td><td>{{ a.detail }}</td></tr>{% endfor %}</tbody></table></div></div>{% endif %}
+  {% for s in sections %}<div class="card" style="margin-top:16px"><h3>{{ s.title }}</h3>{% for it in s['items']|default([]) %}<div>{{ it }}</div>{% endfor %}{% if s.html is defined %}<div>{{ s.html }}</div>{% endif %}</div>{% endfor %}
+</section>
+
+<section id="signing">
+  <h2>Signing</h2>
+  <div class="grid g2">
+  {% for c in apk.signing.certificates %}
+    <div class="card"><h3>Certificate &middot; {{ c.schemes|join(', ') }}</h3><dl class="kv">
+      <dt>Subject</dt><dd class="mono">{{ c.subject }}</dd><dt>Issuer</dt><dd class="mono">{{ c.issuer }}</dd>
+      <dt>Valid</dt><dd>{{ c.not_before[:10] }} to {{ c.not_after[:10] }} {% if c.expired %}<span class="bad">expired</span>{% endif %}</dd>
+      <dt>Key</dt><dd>{{ c.key_type }} {{ c.key_bits }} bit &middot; {{ c.signature_algorithm }} {% if c.debug %}<span class="bad">debug certificate</span>{% endif %}</dd>
+      <dt>SHA-256</dt><dd class="hash">{{ c.sha256 }}</dd></dl></div>
+  {% else %}<div class="card empty">The package is not signed.</div>{% endfor %}
+  </div>
+</section>
+
+<footer>
+  <div><b style="letter-spacing:.14em">DEEPLINK X</b> {{ meta.version }} &middot; {{ meta.tagline }}</div>
+  <div style="margin-top:6px">Open source Android deep link security auditor by Karndeep Baror &middot; <a href="https://github.com/karndeepbaror">github.com/karndeepbaror</a> &middot; <a href="https://x.com/karndeepbaror">x.com/karndeepbaror</a></div>
+  <div style="margin-top:6px">Generated {{ meta.created }}. Use only on applications you own or are authorised to test.</div>
+</footer>
+</div>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  try{var t=localStorage.getItem('dlx-theme');if(t)root.setAttribute('data-theme',t)}catch(e){}
+  document.getElementById('theme').onclick=function(){var n=root.getAttribute('data-theme')==='dark'?'light':'dark';root.setAttribute('data-theme',n);try{localStorage.setItem('dlx-theme',n)}catch(e){}};
+  var q=document.getElementById('q'),sev=document.getElementById('sev'),cat=document.getElementById('cat'),st=document.getElementById('stat');
+  var items=[].slice.call(document.querySelectorAll('details.f'));
+  function apply(){var s=(q.value||'').toLowerCase();items.forEach(function(d){
+    var ok=(!s||d.dataset.text.indexOf(s)>-1)&&(!sev.value||d.dataset.sev===sev.value)&&(!cat.value||d.dataset.cat===cat.value)&&(!st.value||d.dataset.status===st.value);
+    d.classList.toggle('hidden',!ok)})}
+  [q,sev,cat,st].forEach(function(e){e.addEventListener('input',apply)});
+  if(location.hash&&location.hash.indexOf('#F-')===0){var el=document.querySelector('[data-text*="'+location.hash.slice(1).toLowerCase()+'"]');if(el)el.open=true}
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+__version__ = "1.0.0"
+TOOL_NAME = "DEEPLINK X"
+TAGLINE = "Every Link Has an Entry Point. Secure Every Entry."
+AUTHOR = "Karndeep Baror"
+GITHUB = "github.com/karndeepbaror"
+X_HANDLE = "x.com/karndeepbaror"

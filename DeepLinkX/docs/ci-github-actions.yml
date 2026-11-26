@@ -1,0 +1,18 @@
+# Copy to .github/workflows/deeplinkx.yml — fails the build when a firm High+ finding exists, uploads SARIF.
+name: deeplinkx
+on: [push, pull_request]
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install deeplinkx
+      - run: deeplinkx scan app/build/outputs/apk/release/app-release.apk -p ci -f sarif,html,json -o reports
+      - if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with: { sarif_file: reports }
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with: { name: deeplinkx-reports, path: reports }

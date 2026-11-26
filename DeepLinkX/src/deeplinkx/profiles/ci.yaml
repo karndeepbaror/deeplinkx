@@ -1,0 +1,10 @@
+name: ci
+description: Pipeline profile. Reports only firm findings and fails the build on high severity.
+min_severity: low
+min_confidence: firm
+code_analysis: true
+report_formats: [json]
+fail_on: high
+dynamic:
+  max_cases_per_link: 8
+  screenshots: false

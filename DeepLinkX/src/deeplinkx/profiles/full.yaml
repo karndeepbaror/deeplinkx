@@ -1,0 +1,11 @@
+name: full
+description: Everything on. DEX analysis, Digital Asset Links verification and wide dynamic coverage.
+min_severity: info
+code_analysis: true
+verify_assetlinks: true
+report_formats: [html, json, pdf]
+dynamic:
+  max_cases_per_link: 30
+  settle_ms: 2200
+  screenshots: true
+  include_receivers: true

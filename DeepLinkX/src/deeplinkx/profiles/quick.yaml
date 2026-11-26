@@ -1,0 +1,9 @@
+name: quick
+description: Manifest-only triage. Skips DEX analysis for fast results on large APKs.
+min_severity: low
+code_analysis: false
+report_formats: [json]
+dynamic:
+  max_cases_per_link: 6
+  settle_ms: 1000
+  screenshots: false

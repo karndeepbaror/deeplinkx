@@ -1,0 +1,11 @@
+name: standard
+description: Balanced static assessment with code indicators. Suitable for most reviews.
+min_severity: info
+min_confidence: tentative
+code_analysis: true
+verify_assetlinks: false
+report_formats: [html, json]
+dynamic:
+  max_cases_per_link: 18
+  settle_ms: 1500
+  screenshots: true

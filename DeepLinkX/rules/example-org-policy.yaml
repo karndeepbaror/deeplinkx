@@ -1,0 +1,36 @@
+# Custom DEEPLINK X rules. Use with:  deeplinkx scan app.apk --rules rules/example-org-policy.yaml
+# or copy the file into ~/.deeplinkx/rules/ to load it for every scan.
+rules:
+  - id: ORG-001
+    title: Payment or checkout screen is externally reachable
+    severity: high
+    category: Policy
+    description: Payment screens must only be opened from inside the app.
+    remediation: Set android:exported="false" or require a signature permission.
+    tags: [policy, payments]
+    when:
+      kind: [activity]
+      exported: true
+      guard: none
+      name_regex: "(?i)(payment|checkout|wallet)"
+
+  - id: ORG-002
+    title: Custom-scheme deep link can load web content
+    severity: medium
+    category: Policy
+    confidence: tentative
+    description: A custom scheme handler reaches WebView.loadUrl. Use verified HTTPS App Links for web content.
+    remediation: Move the route to an App Link and validate the host before loading it.
+    when:
+      has_deep_link: true
+      browsable: true
+      indicators: [sink_webview_load, input_uri]
+
+  - id: ORG-003
+    title: Release build requests SMS permission and is debuggable
+    severity: high
+    description: Debuggable builds that hold SMS permissions must never leave the build server.
+    remediation: Build release variants without android:debuggable.
+    when:
+      uses_permission: [android.permission.SEND_SMS]
+      debuggable: true

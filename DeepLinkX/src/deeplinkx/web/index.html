@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DEEPLINK X — Android Deep Link Security Auditor</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b1020'/%3E%3Cpath d='M8 9h8a7 7 0 010 14H8z' fill='none' stroke='%2335e0c2' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div id="bg"></div>
+<header id="top">
+  <a class="brand" href="#/"><span class="logo">D<i>X</i></span><span><b>DEEPLINK X</b><small>Every Link Has an Entry Point. Secure Every Entry.</small></span></a>
+  <nav>
+    <a href="#/" data-nav="home">Dashboard</a>
+    <a href="#/scans" data-nav="scans">History</a>
+    <a href="#/rules" data-nav="rules">Rules</a>
+    <a href="#/about" data-nav="about">About</a>
+  </nav>
+  <button id="theme" title="Toggle theme" aria-label="Toggle theme">☾</button>
+</header>
+<main id="view" tabindex="-1"></main>
+<div id="toasts" aria-live="polite"></div>
+<dialog id="auth"><form method="dialog"><h3>API token required</h3><p>This server is protected. Enter the bearer token.</p><input id="token" type="password" autocomplete="off" placeholder="token"><button value="ok">Unlock</button></form></dialog>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
